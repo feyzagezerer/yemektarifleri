@@ -1,0 +1,67 @@
+﻿@using System.Globalization;
+@model List<Meal>
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/Home/Index">Yemek Tarifleri</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="index.html">Ana Sayfa</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">Yemekler<i class="fa fa-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                        @foreach (var tc in (List<TopCategory>)ViewBag.TopCategories)
+                        {
+                            <li><a href="/Category/ViewCategory/@tc.Id">@tc.Ad</a></li>
+                        }
+                    </ul>
+                </li>
+                <li><a href="index.html">Hakkımızda</a></li>
+                <li><a href="contact.html">İletişim</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container -->
+</nav>
+<div class="row">
+    <div class="col-md-6">
+        @{ string mimg = Model[0].Ad.ToLower(new CultureInfo("tr-TR", false)) + ".jpg";}
+        <img class="img-responsive" src="~/images/@mimg" alt="@Model[0].Ad">
+    </div>
+    <div class="col-md-6">
+        <h3>@Model[0].Ad</h3>
+        <h3><small>Malzemeler</small></h3>
+        <p><small>@Model[0].Malzemeler</small></p>
+        <h3>Yapılış</h3>
+        <p>@Model[0].Tarif</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="page-header">İlgili Yemekler</h3>
+    </div>
+    @foreach (Meal item in Model)
+    {
+        if (item.Id != Model[0].Id)
+        {
+            string limg = item.Ad.ToLower(new CultureInfo("tr-TR", false)) + ".jpg";
+            <div class="col-sm-3 col-xs-6">
+                <a href="#" class="link-portfolio">
+                    <div class="overlay-portfolio">
+                        <h3>@item.Ad</h3>
+                    </div>
+                    <img class="img-responsive img-customer" src="~/images/@limg" alt="@item.Ad">
+                </a>
+            </div>
+        }
+    }
+</div>
+

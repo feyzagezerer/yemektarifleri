@@ -1,0 +1,93 @@
+﻿@using System.Globalization;
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/Home/Index">Yemek Tarifleri</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="index.html">Ana Sayfa</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">Yemekler<i class="fa fa-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                        @foreach (var tc in (List<TopCategory>)ViewBag.TopCategories)
+                        {
+                            <li><a href="/Category/ViewCategory/@tc.Id">@tc.Ad</a></li>
+                        }
+                    </ul>
+                </li>
+                <li><a href="index.html">Hakkımızda</a></li>
+                <li><a href="contact.html">İletişim</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container -->
+</nav>
+<div id="myCarousel" class="carousel slide">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('images/slide/salatalar.jpg');"></div>
+            <div class="carousel-caption">
+                <h2>Salatalar</h2>
+                <a href="/Category/ViewCategory/2" class="button">Git</a>
+            </div>
+        </div>
+        <div class="item">
+            <div class="fill" style="background-image:url('images/slide/sebze yemekleri.jpg');"></div>
+            <div class="carousel-caption">
+                <h2>Sebze Yemekleri</h2>
+                <a href="/Category/ViewCategory/3" class="button">Git</a>
+            </div>
+        </div>
+        <div class="item">
+            <div class="fill" style="background-image:url('images/slide/et yemekleri.jpg');"></div>
+            <div class="carousel-caption">
+                <h2>Et Yemekleri</h2>
+                <a href="/Category/ViewCategory/4" class="button">DOWNLOAD</a>
+            </div>
+        </div>
+    </div>
+    <!-- Controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <i class="fa fa-angle-left"></i>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <i class="fa fa-angle-right"></i>
+    </a>
+</div>
+
+<div class="section" id="recent-projects" style="position: relative;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="section-title">Yemekler</h2>
+            </div>
+            @for (int i = 0; i < 6; i++)
+            {
+                Meal mTemp = (Meal)ViewBag.Meals[i];
+                string imgSrc = mTemp.Ad.ToLower(new CultureInfo("tr-TR", false)) + ".jpg";
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <a href="portfolio-item.html" class="link-portfolio">
+                        <div class="overlay-portfolio">
+                            <h3>@mTemp.Ad</h3>
+                        </div><!-- /.overlay-portfolio -->
+                        <img class="img-responsive img-home-portfolio" src="images/@imgSrc" alt="@mTemp.Ad">
+                    </a>
+                </div>
+            }
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div><!-- /.section -->
